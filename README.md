@@ -34,7 +34,7 @@ Then a **Chairman** synthesizes the best elements into a final answer, with a **
 ### 1. Clone and Install
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/edge-jury.git
+git clone https://github.com/aayushakumar/edge-jury.git
 cd edge-jury
 
 # Install worker dependencies
