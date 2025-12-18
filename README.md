@@ -223,6 +223,8 @@ Get full run details (all stage results).
 |-----------|-----|
 | **Frontend** | https://e9cecaa7.edge-jury.pages.dev |
 | **API** | https://edge-jury-worker.aayushakumars.workers.dev |
+| **MVP** | https://edge-jury.pages.dev/ |
+
 
 ---
 
