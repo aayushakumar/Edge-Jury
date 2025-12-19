@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useTheme } from '../../context/ThemeContext';
 import './SettingsModal.css';
 
 export interface CouncilSettings {
@@ -17,6 +18,17 @@ interface SettingsModalProps {
 
 export function SettingsModal({ isOpen, onClose, settings, onSave }: SettingsModalProps) {
     const [localSettings, setLocalSettings] = useState<CouncilSettings>(settings);
+    const { theme, toggleTheme } = useTheme();
+
+    // Handle Escape key to close modal
+    useEffect(() => {
+        if (!isOpen) return;
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') onClose();
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [isOpen, onClose]);
 
     if (!isOpen) return null;
 
@@ -29,11 +41,30 @@ export function SettingsModal({ isOpen, onClose, settings, onSave }: SettingsMod
         <div className="modal-overlay" onClick={onClose}>
             <div className="modal-content glass-elevated" onClick={(e) => e.stopPropagation()}>
                 <div className="modal-header">
-                    <h2>⚙️ Council Settings</h2>
+                    <h2>Council Settings</h2>
                     <button className="modal-close" onClick={onClose}>×</button>
                 </div>
 
                 <div className="modal-body">
+                    {/* Theme Toggle */}
+                    <div className="setting-group">
+                        <label className="setting-label">
+                            <span className="setting-title">Theme</span>
+                            <span className="setting-desc">Switch between dark and light mode</span>
+                        </label>
+                        <div className="setting-control">
+                            <label className="toggle">
+                                <input
+                                    type="checkbox"
+                                    checked={theme === 'light'}
+                                    onChange={toggleTheme}
+                                />
+                                <span className="toggle-slider"></span>
+                            </label>
+                            <span className="slider-value">{theme === 'light' ? 'Light' : 'Dark'}</span>
+                        </div>
+                    </div>
+
                     {/* Council Size */}
                     <div className="setting-group">
                         <label className="setting-label">
