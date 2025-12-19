@@ -35,20 +35,13 @@ const MODEL_NAMES: Record<string, string> = {
     '@cf/mistral/mistral-7b-instruct-v0.2': 'Mistral 7B',
 };
 
-const ROLE_ICONS: Record<string, string> = {
-    direct_answerer: '🎯',
-    edge_case_finder: '🔍',
-    step_by_step_explainer: '📝',
-    pragmatic_implementer: '🛠️',
-};
-
 export function CouncilPanel({ stage1Results, stage2Results, stage3Result, isLoading }: CouncilPanelProps) {
     const [activeModelIndex, setActiveModelIndex] = useState(0);
 
     if (!stage1Results && !isLoading) {
         return (
             <div className="council-empty">
-                <div className="council-empty-icon">🧠</div>
+                <div className="council-empty-icon">C</div>
                 <h3>Council Idle</h3>
                 <p>Send a message to start the deliberation process</p>
             </div>
@@ -76,7 +69,7 @@ export function CouncilPanel({ stage1Results, stage2Results, stage3Result, isLoa
                                     className={`tab ${index === activeModelIndex ? 'active' : ''}`}
                                     onClick={() => setActiveModelIndex(index)}
                                 >
-                                    {ROLE_ICONS[result.role] || '🤖'} Model {String.fromCharCode(65 + index)}
+                                    Model {String.fromCharCode(65 + index)}
                                 </button>
                             ))}
                         </div>
@@ -113,7 +106,7 @@ export function CouncilPanel({ stage1Results, stage2Results, stage3Result, isLoa
                         <div className="reviews-grid">
                             {/* Issues Found */}
                             <div className="review-card card">
-                                <h4>⚠️ Issues Identified</h4>
+                                <h4>Issues Identified</h4>
                                 <ul className="issues-list">
                                     {stage2Results.flatMap(r => r.issues).slice(0, 5).map((issue, i) => (
                                         <li key={i} className="issue-item">
@@ -130,7 +123,7 @@ export function CouncilPanel({ stage1Results, stage2Results, stage3Result, isLoa
 
                             {/* Best Elements */}
                             <div className="review-card card">
-                                <h4>✨ Best Elements</h4>
+                                <h4>Best Elements</h4>
                                 <ul className="best-bits-list">
                                     {stage2Results.flatMap(r => r.best_bits).slice(0, 3).map((bit, i) => (
                                         <li key={i} className="best-bit">
@@ -161,7 +154,7 @@ export function CouncilPanel({ stage1Results, stage2Results, stage3Result, isLoa
                             {/* Rationale */}
                             {stage3Result.rationale.length > 0 && (
                                 <div className="rationale-section">
-                                    <h4>📋 Rationale</h4>
+                                    <h4>Rationale</h4>
                                     <ul className="rationale-list">
                                         {stage3Result.rationale.map((r, i) => (
                                             <li key={i}>{r}</li>
@@ -173,7 +166,7 @@ export function CouncilPanel({ stage1Results, stage2Results, stage3Result, isLoa
                             {/* Disagreements */}
                             {stage3Result.disagreements.length > 0 && (
                                 <div className="disagreements-section">
-                                    <h4>⚔️ Disagreements Resolved</h4>
+                                    <h4>Disagreements Resolved</h4>
                                     {stage3Result.disagreements.map((d, i) => (
                                         <div key={i} className="disagreement-item">
                                             <strong>{d.topic}</strong>
